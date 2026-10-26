@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}My Applications | JobPortal{% endblock %}
+
+{% block content %}
+<div class="container section">
+    <h2>My Applications</h2>
+    {% if applications %}
+        <table>
+            <thead>
+                <tr><th>Job</th><th>Company</th><th>Applied on</th><th>Status</th></tr>
+            </thead>
+            <tbody>
+                {% for app in applications %}
+                <tr>
+                    <td><a class="link" href="{% url 'job_detail' app.job.pk %}">{{ app.job.job_title }}</a></td>
+                    <td>{{ app.job.employer.company_name }}</td>
+                    <td>{{ app.applied_at|date:"d M Y" }}</td>
+                    <td><span class="badge status-{{ app.status }}">{{ app.get_status_display }}</span></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="muted">You have not applied for any job yet.</p>
+        <a class="btn btn-dark" href="{% url 'job_list' %}">Find jobs</a>
+    {% endif %}
+</div>
+{% endblock %}

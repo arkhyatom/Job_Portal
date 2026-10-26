@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Post a Job | JobPortal{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="card form-card">
+        <h2>Post a job</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-dark full" type="submit">Post job</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

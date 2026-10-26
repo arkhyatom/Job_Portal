@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}All Jobs | JobPortal{% endblock %}
+
+{% block content %}
+<div class="container layout">
+    <aside class="card filters">
+        <h3>Filter jobs</h3>
+        <form method="get">
+            <label for="q">Job title or company</label>
+            <input id="q" type="text" name="q" value="{{ q }}">
+
+            <label for="location">Location</label>
+            <input id="location" type="text" name="location" value="{{ location }}">
+
+            <label for="job_type">Job type</label>
+            <select id="job_type" name="job_type">
+                <option value="">All types</option>
+                {% for value, label in job_types %}
+                    <option value="{{ value }}" {% if value == selected_type %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+
+            <button class="btn btn-dark full" type="submit">Apply filters</button>
+            <a class="btn btn-outline full" href="{% url 'job_list' %}">Clear</a>
+        </form>
+    </aside>
+
+    <section>
+        <h2>All Jobs</h2>
+        <p class="muted">Showing {{ jobs|length }} job{{ jobs|length|pluralize }}</p>
+        <div class="grid grid-2">
+            {% for job in jobs %}
+                {% include "_job_card.html" %}
+            {% empty %}
+                <p class="muted">No jobs match your search. Try a different title or location.</p>
+            {% endfor %}
+        </div>
+    </section>
+</div>
+{% endblock %}

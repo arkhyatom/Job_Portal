@@ -1,0 +1,28 @@
+{% load humanize %}
+<article class="card job-card">
+    <div class="job-head">
+        {% if job.employer.logo %}
+            <img class="avatar" src="{{ job.employer.logo.url }}" alt="{{ job.employer.company_name }}">
+        {% else %}
+            <div class="avatar">{{ job.employer.company_name|first|upper }}</div>
+        {% endif %}
+        <div>
+            <h3>{{ job.job_title }}</h3>
+            <p class="muted">{{ job.employer.company_name }}</p>
+        </div>
+    </div>
+
+    <div class="meta">
+        <span>{{ job.location }}</span>
+        {% if job.salary %}<span>₹{{ job.salary|intcomma }} / year</span>{% endif %}
+        <span>{{ job.created_at|timesince }} ago</span>
+    </div>
+
+    <span class="tag">{{ job.get_job_type_display }}</span>
+    <p class="desc">{{ job.description|truncatechars:130 }}</p>
+
+    <div class="card-actions">
+        <a class="btn btn-outline" href="{% url 'job_detail' job.pk %}">View Details</a>
+        <a class="btn btn-dark" href="{% url 'apply' job.pk %}">Apply Now</a>
+    </div>
+</article>

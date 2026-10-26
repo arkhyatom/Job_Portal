@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero">
+    <div class="container">
+        <h1>Find your next job</h1>
+        <p class="muted">Search openings from companies that are hiring right now.</p>
+
+        <form class="search-box" method="get" action="{% url 'job_list' %}">
+            <input type="text" name="q" placeholder="Job title or company">
+            <input type="text" name="location" placeholder="Location">
+            <button class="btn btn-dark" type="submit">Search Jobs</button>
+        </form>
+
+        <div class="stats">
+            <div><strong>{{ job_count }}</strong><span>Active jobs</span></div>
+            <div><strong>{{ company_count }}</strong><span>Companies</span></div>
+            <div><strong>{{ candidate_count }}</strong><span>Job seekers</span></div>
+        </div>
+    </div>
+</section>
+
+<section class="container section">
+    <h2>Latest jobs</h2>
+    <div class="grid">
+        {% for job in latest_jobs %}
+            {% include "_job_card.html" %}
+        {% empty %}
+            <p class="muted">No jobs have been posted yet.</p>
+        {% endfor %}
+    </div>
+    <p class="center"><a class="btn btn-outline" href="{% url 'job_list' %}">View all jobs</a></p>
+</section>
+{% endblock %}

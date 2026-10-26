@@ -1,0 +1,142 @@
+:root {
+    --bg: #fafafa;
+    --surface: #ffffff;
+    --text: #0a0a0a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --dark: #0a0a14;
+    --radius: 12px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: "Inter", -apple-system, "Segoe UI", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.55;
+}
+
+a { color: inherit; text-decoration: none; }
+h1 { font-size: 32px; font-weight: 600; }
+h2 { font-size: 24px; font-weight: 600; margin-bottom: 16px; }
+h3 { font-size: 17px; font-weight: 600; }
+p { margin: 8px 0; }
+
+.container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+.narrow { max-width: 760px; }
+.section { padding-top: 40px; }
+.center { text-align: center; margin-top: 28px; }
+.muted { color: var(--muted); }
+.link { text-decoration: underline; }
+.full { width: 100%; text-align: center; margin-top: 8px; }
+.row-between { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+
+/* navbar */
+.navbar { background: var(--surface); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 10; }
+.nav-inner { display: flex; align-items: center; gap: 24px; min-height: 72px; flex-wrap: wrap; }
+.brand { font-size: 22px; font-weight: 600; }
+.nav-links { display: flex; gap: 20px; flex: 1; }
+.nav-links a:hover { color: var(--muted); }
+.nav-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.inline-form { display: inline; }
+
+/* buttons */
+.btn {
+    display: inline-block; padding: 9px 16px; border-radius: 8px; font: inherit;
+    font-size: 14px; font-weight: 500; cursor: pointer; border: 1px solid var(--dark);
+}
+.btn-dark { background: var(--dark); color: #fff; }
+.btn-outline { background: var(--surface); color: var(--text); border-color: var(--border); }
+.btn:hover { opacity: 0.85; }
+.btn:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+    outline: 2px solid var(--dark); outline-offset: 2px;
+}
+
+/* messages */
+.alert { margin-top: 16px; padding: 12px 16px; border-radius: 8px; font-size: 14px; background: #eef2ff; color: #3730a3; }
+.alert-success { background: #dcfce7; color: #166534; }
+.alert-error { background: #fee2e2; color: #991b1b; }
+
+/* hero */
+.hero { background: #f4f4f5; padding: 64px 0 48px; text-align: center; }
+.search-box {
+    display: flex; gap: 12px; max-width: 760px; margin: 28px auto 0; padding: 20px;
+    background: var(--surface); border-radius: var(--radius); box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+}
+.search-box input { flex: 1; }
+.stats { display: flex; justify-content: center; gap: 56px; margin-top: 36px; flex-wrap: wrap; }
+.stats div { display: flex; flex-direction: column; }
+.stats strong { font-size: 28px; }
+.stats span { color: var(--muted); font-size: 14px; }
+
+/* cards + grids */
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+.grid-2 { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+.job-card { display: flex; flex-direction: column; gap: 12px; }
+.job-head { display: flex; align-items: center; gap: 14px; }
+.avatar {
+    width: 48px; height: 48px; border-radius: 50%; background: #f1f1f3; object-fit: cover;
+    display: flex; align-items: center; justify-content: center; font-weight: 600; flex-shrink: 0;
+}
+.meta { display: flex; gap: 16px; flex-wrap: wrap; color: var(--muted); font-size: 14px; }
+.tag { align-self: flex-start; display: inline-block; background: #f1f1f3; border-radius: 6px; padding: 3px 10px; font-size: 13px; font-weight: 500; }
+.desc { color: var(--muted); font-size: 14px; }
+.card-actions { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: auto; padding-top: 8px; flex-wrap: wrap; }
+
+/* job list layout */
+.layout { display: grid; grid-template-columns: 260px 1fr; gap: 24px; padding-top: 32px; align-items: start; }
+.filters h3 { margin-bottom: 8px; }
+
+/* job detail */
+.detail { margin-top: 16px; display: flex; flex-direction: column; gap: 12px; }
+.detail h1 { font-size: 26px; }
+
+/* forms */
+.form-card { max-width: 520px; margin: 40px auto; }
+.form-card h2 { margin-bottom: 8px; }
+form p { margin: 0 0 14px; }
+label { display: block; font-weight: 500; font-size: 14px; margin: 10px 0 4px; }
+form p label { margin-top: 0; }
+input[type="text"], input[type="password"], input[type="number"], input[type="url"],
+input[type="date"], input[type="email"], select, textarea {
+    width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px;
+    font: inherit; font-size: 14px; background: var(--surface);
+}
+.helptext { display: block; color: var(--muted); font-size: 12px; margin-top: 4px; }
+.helptext ul { padding-left: 18px; }
+.errorlist { list-style: none; color: #b91c1c; font-size: 13px; margin-bottom: 4px; }
+
+/* tables */
+table { width: 100%; border-collapse: collapse; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+th, td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: 14px; }
+th { background: #f4f4f5; font-weight: 600; }
+tr:last-child td { border-bottom: none; }
+
+.badge { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 500; }
+.status-a { background: #e0e7ff; color: #3730a3; }
+.status-s { background: #dcfce7; color: #166534; }
+.status-r { background: #fee2e2; color: #991b1b; }
+
+/* applicants */
+.applicant { margin-top: 16px; }
+.status-form { display: flex; gap: 10px; margin-top: 12px; max-width: 360px; }
+.status-form select { flex: 1; }
+
+/* footer */
+.site-footer { border-top: 1px solid var(--border); margin-top: 64px; padding: 28px 0; color: var(--muted); font-size: 14px; text-align: center; }
+
+@media (max-width: 800px) {
+    .layout { grid-template-columns: 1fr; }
+    .search-box { flex-direction: column; }
+    .nav-links { flex-basis: 100%; order: 3; }
+    table { display: block; overflow-x: auto; }
+}
+
+
+
+
+
+
+

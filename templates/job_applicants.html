@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Applicants | JobPortal{% endblock %}
+
+{% block content %}
+<div class="container section">
+    <a class="muted" href="{% url 'employer_dashboard' %}">&larr; Back to my jobs</a>
+    <h2>Applicants for {{ job.job_title }}</h2>
+
+    {% for app in applications %}
+        <div class="card applicant">
+            <div class="row-between">
+                <div>
+                    <h3>{{ app.candidate.name }}</h3>
+                    <p class="muted">Age {{ app.candidate.age }} &middot; {{ app.candidate.phone }} &middot; applied {{ app.applied_at|date:"d M Y" }}</p>
+                </div>
+                <span class="badge status-{{ app.status }}">{{ app.get_status_display }}</span>
+            </div>
+
+            {% if app.cover_letter %}<p>{{ app.cover_letter|linebreaksbr }}</p>{% endif %}
+            {% if app.candidate.resume %}
+                <p><a class="link" href="{{ app.candidate.resume.url }}" target="_blank">View resume</a></p>
+            {% endif %}
+
+            <form method="post" class="status-form">
+                {% csrf_token %}
+                <input type="hidden" name="application_id" value="{{ app.pk }}">
+                <select name="status">
+                    {% for value, label in statuses %}
+                        <option value="{{ value }}" {% if value == app.status %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+                <button class="btn btn-dark" type="submit">Update status</button>
+            </form>
+        </div>
+    {% empty %}
+        <p class="muted">No one has applied for this job yet.</p>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block title %}{{ job.job_title }} | JobPortal{% endblock %}
+
+{% block content %}
+<div class="container narrow section">
+    <a class="muted" href="{% url 'job_list' %}">&larr; Back to jobs</a>
+
+    <div class="card detail">
+        <div class="job-head">
+            {% if job.employer.logo %}
+                <img class="avatar" src="{{ job.employer.logo.url }}" alt="{{ job.employer.company_name }}">
+            {% else %}
+                <div class="avatar">{{ job.employer.company_name|first|upper }}</div>
+            {% endif %}
+            <div>
+                <h1>{{ job.job_title }}</h1>
+                <p class="muted">{{ job.employer.company_name }}</p>
+            </div>
+        </div>
+
+        <div class="meta">
+            <span>{{ job.location }}</span>
+            {% if job.salary %}<span>₹{{ job.salary|intcomma }} / year</span>{% endif %}
+            <span>Posted {{ job.created_at|timesince }} ago</span>
+            {% if job.deadline %}<span>Apply before {{ job.deadline|date:"d M Y" }}</span>{% endif %}
+        </div>
+        <span class="tag">{{ job.get_job_type_display }}</span>
+
+        <h3>About the job</h3>
+        <p>{{ job.description|linebreaksbr }}</p>
+
+        {% if job.employer.description %}
+            <h3>About {{ job.employer.company_name }}</h3>
+            <p>{{ job.employer.description|linebreaksbr }}</p>
+        {% endif %}
+        {% if job.employer.website %}
+            <p><a class="link" href="{{ job.employer.website }}" target="_blank" rel="noopener">Company website</a></p>
+        {% endif %}
+
+        <div class="card-actions">
+            {% if already_applied %}
+                <span class="tag">You have applied for this job</span>
+                <a class="btn btn-outline" href="{% url 'my_applications' %}">View my applications</a>
+            {% elif expired %}
+                <span class="tag">Applications are closed</span>
+            {% else %}
+                <a class="btn btn-dark" href="{% url 'apply' job.pk %}">Apply Now</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
